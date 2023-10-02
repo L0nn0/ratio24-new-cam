@@ -77,32 +77,28 @@ pred_labels_test = np.argmax(raw_outputs, axis=1)
 
 print(classification_report(y_true=df_test.labels.tolist(), y_pred=pred_labels_test))
 
-test_model = ClassificationModel("roberta", "gdrive/MyDrive/checkpoints/checkpoint-1800-epoch-5", num_labels=4, use_cuda=torch.cuda.is_available())
+def test_results(PATH_CHEKPOINTS):
+  test_model = ClassificationModel("roberta", PATH_CHEKPOINTS, num_labels=4, use_cuda=torch.cuda.is_available())
 
-_, raw_outputs, _ = test_model.eval_model(df_test)
-pred_probs_test = softmax(raw_outputs, axis=1)
-pred_labels_test = np.argmax(raw_outputs, axis=1)
+  _, raw_outputs, _ = test_model.eval_model(df_test)
+  pred_probs_test = softmax(raw_outputs, axis=1)
+  pred_labels_test = np.argmax(raw_outputs, axis=1)
 
-print(classification_report(y_true=df_test.labels.tolist(), y_pred=pred_labels_test))
+  pred_labels_test_transformed = ["NONE" if x == 0 else "BETTER" if x == 2 else "WORSE" for x in pred_labels_test]
+  df_test_transformed = df_test.copy()
+  df_test_transformed["labels"].replace({0: "NONE", 2: "BETTER", 3: "WORSE"}, inplace=True)
 
-#list(pred_probs_test)
+  print(classification_report(y_true=df_test_transformed.labels.tolist(), y_pred=pred_labels_test_transformed))
 
-df_test["pred_labels"] = pred_labels_test
-df_test["pred_probs"] = list(pred_probs_test)
-df_test.to_csv('gdrive/MyDrive/data/5_epochs_comparg_test.tsv', sep='\t', index=False)
+PATH_CHEKPOINTS = "gdrive/MyDrive/checkpoints/checkpoint-1800-epoch-5"
+test_results(PATH_CHEKPOINTS)
 
-test_model = ClassificationModel("roberta", "gdrive/MyDrive/checkpoints/checkpoint-2880-epoch-8", num_labels=4, use_cuda=torch.cuda.is_available())
+#df_test["pred_labels"] = pred_labels_test
+#df_test["pred_probs"] = list(pred_probs_test)
+#df_test.to_csv('gdrive/MyDrive/data/5_epochs_comparg_test.tsv', sep='\t', index=False)
 
-_, raw_outputs, _ = test_model.eval_model(df_test)
-pred_probs_test = softmax(raw_outputs, axis=1)
-pred_labels_test = np.argmax(raw_outputs, axis=1)
+PATH_CHEKPOINTS = "gdrive/MyDrive/checkpoints/checkpoint-2880-epoch-8"
+test_results(PATH_CHEKPOINTS)
 
-print(classification_report(y_true=df_test.labels.tolist(), y_pred=pred_labels_test))
-
-test_model = ClassificationModel("roberta", "gdrive/MyDrive/checkpoints/checkpoint-3600-epoch-10", num_labels=4, use_cuda=torch.cuda.is_available())
-
-_, raw_outputs, _ = test_model.eval_model(df_test)
-pred_probs_test = softmax(raw_outputs, axis=1)
-pred_labels_test = np.argmax(raw_outputs, axis=1)
-
-print(classification_report(y_true=df_test.labels.tolist(), y_pred=pred_labels_test))
+PATH_CHEKPOINTS = "gdrive/MyDrive/checkpoints/checkpoint-3600-epoch-10"
+test_results(PATH_CHEKPOINTS)
