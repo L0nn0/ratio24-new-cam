@@ -77,6 +77,8 @@ pred_labels_test = np.argmax(raw_outputs, axis=1)
 
 print(classification_report(y_true=df_test.labels.tolist(), y_pred=pred_labels_test))
 
+from sklearn.metrics import f1_score
+
 def test_results(PATH_CHEKPOINTS):
   test_model = ClassificationModel("roberta", PATH_CHEKPOINTS, num_labels=4, use_cuda=torch.cuda.is_available())
 
@@ -89,6 +91,7 @@ def test_results(PATH_CHEKPOINTS):
   df_test_transformed["labels"].replace({0: "NONE", 2: "BETTER", 3: "WORSE"}, inplace=True)
 
   print(classification_report(y_true=df_test_transformed.labels.tolist(), y_pred=pred_labels_test_transformed))
+  print(f"F1-micro: {f1_score(y_true=df_test_transformed.labels.tolist(), y_pred=pred_labels_test_transformed, average='micro')}")
 
 PATH_CHEKPOINTS = "gdrive/MyDrive/checkpoints/checkpoint-1800-epoch-5"
 test_results(PATH_CHEKPOINTS)
