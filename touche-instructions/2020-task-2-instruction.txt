@@ -1,0 +1,20 @@
+Touché Task 2: Comparative Argument Retrieval
+
+The goal of Task 2 is to support users facing some choice problem from "everyday life". Given a comparative question, the task is to retrieve and rank documents from the ClueWeb12 that help to answer the comparative question. 
+
+Each comparison search task is represented as a topic, where the title is a comparative question, the description represents a detailed search scenario, and the narrative describes what documents would be considered (highly) relevant. 
+
+1. A record of the annotation file consists of: a topic number, a document ID, a link to the document, a field for the 'relevance' label.
+2. For a given topic number, please read the title, description, and narrative carefully.
+3. In particular, the narrative specifies what a (highly) relevant document would be for a given topic.
+4. Click (copy-paste) the link to open the document, read it.
+5. For the 'relevance' label put:
+	a) 2 for a highly relevant document; 
+	b) 1 for a relevant document;
+	c) 0 otherwise.
+6. Additionally to the explanation in the narrative of what documents should be considered as (highly) relevant, for all topics the following rule of thumb might be helpful:
+	a) highly relevant documents compare the options mentioned in the question with respect to the aspects from the question and the description; ideally, a highly relevant document also includes a conclusion on which option is preferable ... but this is not a must;
+	b) relevant documents contain information about at least one of the compared options mentioned in the questions with respect to the aspects from the question and the description ... at least, the user may learn something important about one of the options;
+	c) irrelevant documents do not compare the options from the question with respect to the aspects from the question and the description and also do not provide information on either of the options.
+
+Narratives may not describe all possible relevance options. This instruction should be considered as an extension to all topics. 
