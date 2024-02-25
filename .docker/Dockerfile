@@ -10,5 +10,7 @@ RUN wget 'https://raw.githubusercontent.com/tira-io/ir-experiment-platform/main/
 
 ADD . /app
 
-ENTRYPOINT [ "/run-notebook.py", "--input", "$inputDataset", "--output", "$outputDir", "--notebook", "/app/classify_comparative_queries.ipynb" ]
+RUN jupyter trust /app/code/*.ipynb
+
+ENTRYPOINT [ "/run-notebook.py", "--input", "$inputDataset", "--output", "$outputDir", "--notebook", "/app/code/classify_comparative_queries.ipynb" ]
 
